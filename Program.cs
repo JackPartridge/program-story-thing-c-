@@ -14,7 +14,7 @@ namespace Text_based_game_oofer
          * attacks halve, more weapon types crimson blade, orb which increases magical damage, potions in battle, every stat x10, */
 
         //arrays, cos apparently they need global stuff now...
-        public static int[,] map = new int[15, 15];
+        public static int[,] map = new int[10, 10];
 
         //number variables
         public static int j = 2;
@@ -316,7 +316,7 @@ namespace Text_based_game_oofer
                             Console.WriteLine(story[storyCounterInt]);
                             Console.ReadKey();
                         }
-                        if (storyCounterInt == 6)
+                        if (storyCounterInt == 5)
                         {
                             Ending();
                         }
@@ -869,8 +869,8 @@ namespace Text_based_game_oofer
                 {
                     while (true)
                     {
-                        int yofj = rnd.Next(0, 14);
-                        int xofj = rnd.Next(0, 14);
+                        int yofj = rnd.Next(0, 9);
+                        int xofj = rnd.Next(0, 9);
 
 
                         if (!new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }.Contains(map[yofj, xofj]))
@@ -886,8 +886,8 @@ namespace Text_based_game_oofer
             }
             for (int k = 0; k <= 8; k++)
             {
-                int yofk = rnd.Next(0, 14);
-                int xofk = rnd.Next(0, 14);
+                int yofk = rnd.Next(0, 9);
+                int xofk = rnd.Next(0, 9);
                 if (!new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }.Contains(map[yofk, xofk]))
                 {
                     map[yofk, xofk] = 8;
@@ -903,8 +903,8 @@ namespace Text_based_game_oofer
             if (escapeSucess == false)
             {
                 //declares 1s position
-                int xof1 = rnd1.Next(0, 15);
-                int yof1 = rnd1.Next(0, 15);
+                int xof1 = rnd1.Next(0, 10);
+                int yof1 = rnd1.Next(0, 10);
                 map[yof1, xof1] = 1;
                 PositionDecider();
             }
@@ -973,7 +973,7 @@ namespace Text_based_game_oofer
                             }
                             break;
                         case "south":
-                            if (yof1 == 14)
+                            if (yof1 == 9)
                             {
                                 Console.WriteLine("Can't go");
                             }
@@ -1026,7 +1026,7 @@ namespace Text_based_game_oofer
                             }
                             break;
                         case "east":
-                            if (xof1 == 14)
+                            if (xof1 == 9)
                             {
                                 Console.WriteLine("Can't go");
                             }
@@ -1188,35 +1188,34 @@ namespace Text_based_game_oofer
         }
         public static void Ending()
         {
-            string text1 = ("As your sword lies thrust through flesh and earth, you feel strange, like some invisble power is dragging your lifeforce from you.\nYou fall to your knees, unable to anything" +
-                "but clutch your chest weakly.\n\nAll of this trial, and for what?");
-            foreach (char c in text1)
-            {
-                Console.Write(c);
-                Thread.Sleep(50);
-            }
-            Thread.Sleep(3000);
-            string text2 = ("You collapse, exausted, and dying.\nThere's no way out now, no way back to the light. Death surrounds you.\nAll you know is this: your life served to give birth a new age of man\n" +
-                "One that did not have to face the horrors that you were forced to live through.");
-            foreach (char d in text2)
-            {
-                Console.Write(d);
-                Thread.Sleep(50);
-            }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.Black;
+            string text1 = ("As your sword lies thrust through flesh and earth, you feel strange - as if some invisble power is dragging your lifeforce from you.\nYou fall to your knees, unable to do anything" +
+                " but clutch your chest weakly.\n\nAll of this trial, and for what?\n");
             Thread.Sleep(2000);
-            string text3 = ("Rest, hero.\nYou completed your journey, completed what you set out to do");
-            foreach (char e in text3)
-            {
-                Console.Write(e);
-                Thread.Sleep(50);
-            }
+            Console.Clear();
+            Thread.Sleep(500);
+            SlowPrint.SlowPrinting(text1);
+            Thread.Sleep(3000);
+            string text2 = ("You collapse, exausted, and dying.\nThere's no way out now, no way back to the light. Death surrounds you.\nAll you know is this: your life served to birth a new age of man\n" +
+                "One that did not have to face the horrors that you were forced to live through.\n");
+            Thread.Sleep(2000);
+            Console.Clear();
+            Thread.Sleep(500);
+            SlowPrint.SlowPrinting(text2);
+            Thread.Sleep(2000);
+            Console.Clear();
+            Thread.Sleep(500);
+            string text3 = ("Rest, hero.\nYou completed your journey, completed what you set out to do\n");
+            SlowPrint.SlowPrinting(text3);
             Thread.Sleep(2000);
             string text4 = ("\n\n\nSleep now...");
-            foreach (char f in text4)
-            {
-                Console.Write(f);
-                Thread.Sleep(50);
-            }
+            SlowPrint.SlowPrinting(text4);
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + ("Thanks for playing".Length / 2)) + "}", "Thanks for playing"));
+            Console.ReadKey();
+            Environment.Exit(0);
         }
         //sets everything up
         public static void Main2(string[] args)
@@ -1228,6 +1227,7 @@ namespace Text_based_game_oofer
             Console.WindowWidth = 165;
             Console.SetBufferSize(165, 40);
             Console.CursorVisible = false;
+            Ending();
             CharacterCreation();
         }
     }
